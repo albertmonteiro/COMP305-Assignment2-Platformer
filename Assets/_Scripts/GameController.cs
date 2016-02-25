@@ -89,7 +89,8 @@ public class GameController : MonoBehaviour
         this.HighScoreLabel.gameObject.SetActive(true);
         this.LivesLabel.gameObject.SetActive(false);
         this.ScoreLabel.gameObject.SetActive(false);
-        //this._gameOverSound.Play();
+        this._gameOverSound.Play();
+        Debug.Log("Game over!");
         this.RestartButton.gameObject.SetActive(true);
     }
 
