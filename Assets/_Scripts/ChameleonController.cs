@@ -61,7 +61,7 @@ public class ChameleonController : MonoBehaviour
         this._hurtSound = this._audioSources[2];
 
         // place the hero in the starting position
-        this._spawn();
+        this._spawn001();
     }
 
     // Update is called once per frame
@@ -218,9 +218,23 @@ public class ChameleonController : MonoBehaviour
         //}
 
 
-        if (other.gameObject.CompareTag("Death"))
+        if (other.gameObject.CompareTag("Death001"))
         {
-            this._spawn();
+            this._spawn001();
+            this._hurtSound.Play();
+            this.gameController.LivesValue--;
+        }
+
+        if (other.gameObject.CompareTag("Death002"))
+        {
+            this._spawn002();
+            this._hurtSound.Play();
+            this.gameController.LivesValue--;
+        }
+
+        if (other.gameObject.CompareTag("Death003"))
+        {
+            this._spawn003();
             this._hurtSound.Play();
             this.gameController.LivesValue--;
         }
@@ -246,8 +260,19 @@ public class ChameleonController : MonoBehaviour
         }
     }
 
-    private void _spawn()
+    private void _spawn001()
     {
-        this._transform.position = new Vector3(-130f, 0f, 0);
+        this._transform.position = new Vector3(-130f, -111f, 0);
     }
+
+    private void _spawn002()
+    {
+        this._transform.position = new Vector3(2175f, -176f, 0);
+    }
+
+    private void _spawn003()
+    {
+        this._transform.position = new Vector3(3365f, -113f, 0);
+    }
+
 }
