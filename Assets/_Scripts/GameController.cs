@@ -9,8 +9,8 @@ public class GameController : MonoBehaviour
     private int _scoreValue;
     private int _livesValue;
 
-    //[SerializeField]
-    //private AudioSource _gameOverSound;
+    [SerializeField]
+    private AudioSource _gameOverSound;
 
 
     // PUBLIC ACCESS METHODS

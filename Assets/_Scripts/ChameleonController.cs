@@ -182,6 +182,8 @@ public class ChameleonController : MonoBehaviour
 
         if (this._jump > 0 && this._isGrounded)
         {
+
+            this._jumpSound.Play();
             // jump force
             if (absVelY < this.velocityRange.maximum)
             {
