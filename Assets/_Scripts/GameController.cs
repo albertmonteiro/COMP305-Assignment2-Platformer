@@ -9,6 +9,9 @@ public class GameController : MonoBehaviour
     private int _scoreValue;
     private int _livesValue;
 
+    //[SerializeField]
+    //private AudioSource _gameOverSound;
+
 
     // PUBLIC ACCESS METHODS
     public int ScoreValue
@@ -73,25 +76,26 @@ public class GameController : MonoBehaviour
     {
         this.ScoreValue = 0;
         this.LivesValue = 5;
-        //this.GameOverLabel.gameObject.SetActive (false);
-        //this.HighScoreLabel.gameObject.SetActive (false);
-        //this.RestartButton.gameObject.SetActive(false);
-    }
-
-    private void _endGame()
-    {
-        //this.HighScoreLabel.text = "High Score: " + this._scoreValue;
-        //this.GameOverLabel.gameObject.SetActive (true);
-        //this.HighScoreLabel.gameObject.SetActive (true);
-        this.LivesLabel.gameObject.SetActive(false);
-        this.ScoreLabel.gameObject.SetActive(false);
-        //this.RestartButton.gameObject.SetActive (true);
+        this.GameOverLabel.gameObject.SetActive(false);
+        this.HighScoreLabel.gameObject.SetActive(false);
+        this.RestartButton.gameObject.SetActive(false);
     }
 
     // PUBLIC METHODS
+    public void _endGame()
+    {
+        this.HighScoreLabel.text = "High Score: " + this._scoreValue;
+        this.GameOverLabel.gameObject.SetActive(true);
+        this.HighScoreLabel.gameObject.SetActive(true);
+        this.LivesLabel.gameObject.SetActive(false);
+        this.ScoreLabel.gameObject.SetActive(false);
+        //this._gameOverSound.Play();
+        this.RestartButton.gameObject.SetActive(true);
+    }
 
     public void RestartButtonClick()
     {
+        Debug.Log("Restart!");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

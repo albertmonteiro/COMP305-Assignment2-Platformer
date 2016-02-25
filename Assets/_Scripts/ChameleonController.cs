@@ -204,12 +204,12 @@ public class ChameleonController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        //if (other.gameObject.CompareTag("Coin"))
-        //{
-        //    this._coinSound.Play();
-        //    Destroy(other.gameObject);
-        //    this.gameController.ScoreValue += 10;
-        //}
+        if (other.gameObject.CompareTag("Bear"))
+        {
+            this._coinSound.Play();
+            Destroy(other.gameObject);
+            this.gameController.ScoreValue += 10;
+        }
 
         //if (other.gameObject.CompareTag("SpikedWheel"))
         //{
@@ -220,10 +220,16 @@ public class ChameleonController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Death"))
         {
-            Debug.Log("Death!");
             this._spawn();
             this._hurtSound.Play();
             this.gameController.LivesValue--;
+        }
+
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            this._coinSound.Play();
+            Destroy(other.gameObject);
+            gameController._endGame();
         }
     }
 
