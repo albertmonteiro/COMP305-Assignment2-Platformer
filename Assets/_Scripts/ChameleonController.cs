@@ -174,7 +174,6 @@ public class ChameleonController : MonoBehaviour
         {
             this._spawn001();
             this._hurtSound.Play();
-            Destroy(other.gameObject);
             this.gameController.LivesValue--;
         }
 
@@ -183,7 +182,6 @@ public class ChameleonController : MonoBehaviour
         {
             this._spawn003();
             this._hurtSound.Play();
-            Destroy(other.gameObject);
             this.gameController.LivesValue--;
         }
 
