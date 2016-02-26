@@ -83,66 +83,6 @@ public class ChameleonController : MonoBehaviour
         float absVelX = Mathf.Abs(this._rigidBody2D.velocity.x);
         float absVelY = Mathf.Abs(this._rigidBody2D.velocity.y);
 
-        //// Ensure the player is grounded before any movement checks
-        //if (this._isGrounded)
-        //{
-        //    // gets a number between -1 to 1 for both Horizontal and Vertical Axes
-        //    this._move = Input.GetAxis("Horizontal");
-        //    this._jump = Input.GetAxis("Vertical");
-
-        //    if (this._move != 0)
-        //    {
-        //        if (this._move > 0)
-        //        {
-        //            // movement force
-        //            if (absVelX < this.velocityRange.maximum)
-        //            {
-        //                forceX = this.moveForce;
-        //            }
-        //            this._facingRight = true;
-        //            this._flip();
-        //        }
-        //        if (this._move < 0)
-        //        {
-        //            // movement force
-        //            if (absVelX < this.velocityRange.maximum)
-        //            {
-        //                forceX = -this.moveForce;
-        //            }
-        //            this._facingRight = false;
-        //            this._flip();
-        //        }
-
-        //        // call the walk clip
-        //        this._animator.SetInteger("AnimationState", 1);
-        //    }
-        //    else
-        //    {
-
-        //        // set default animation state to "idle"
-        //        this._animator.SetInteger("AnimationState", 0);
-        //    }
-
-        //    if (this._jump > 0)
-        //    {
-        //        // jump force
-        //        if (absVelY < this.velocityRange.maximum)
-        //        {
-        //            forceY = this.jumpForce;
-        //        }
-
-        //    }
-        //}
-        //else
-        //{
-        //    // call the "jump" clip
-        //    this._animator.SetInteger("AnimationState", 2);
-        //}
-
-        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        // DOES NOT Ensure the player is grounded before any movement checks
-        //if (this._isGrounded)
-        //{
         // gets a number between -1 to 1 for both Horizontal and Vertical Axes
         this._move = Input.GetAxis("Horizontal");
         this._jump = Input.GetAxis("Vertical");
@@ -182,30 +122,22 @@ public class ChameleonController : MonoBehaviour
 
         if (this._jump > 0 && this._isGrounded)
         {
-
-            this._jumpSound.Play();
             // jump force
+            this._jumpSound.Play();
             if (absVelY < this.velocityRange.maximum)
             {
                 forceY = this.jumpForce;
             }
             this._animator.SetInteger("AnimationState", 2);
         }
-        //}
-        //else
-        //{
-        // call the "jump" clip
-        //}
-        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-        //Debug.Log(forceX);
-        // Apply the forces to the player
         this._rigidBody2D.AddForce(new Vector2(forceX, forceY));
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        // Collision with a Bear event handler, gives the player 10 points
         if (other.gameObject.CompareTag("Bear"))
         {
             this._coinSound.Play();
@@ -213,13 +145,7 @@ public class ChameleonController : MonoBehaviour
             this.gameController.ScoreValue += 10;
         }
 
-        //if (other.gameObject.CompareTag("SpikedWheel"))
-        //{
-        //    this._hurtSound.Play();
-        //    this.gameController.LivesValue--;
-        //}
-
-
+        // Falling off the platform event handler, takes away a life and respawns to start of game
         if (other.gameObject.CompareTag("Death001"))
         {
             this._spawn001();
@@ -227,6 +153,7 @@ public class ChameleonController : MonoBehaviour
             this.gameController.LivesValue--;
         }
 
+        // Falling off the platform event handler, takes away a life and respawns middle of game
         if (other.gameObject.CompareTag("Death002"))
         {
             this._spawn002();
@@ -234,6 +161,7 @@ public class ChameleonController : MonoBehaviour
             this.gameController.LivesValue--;
         }
 
+        // Falling off the platform event handler, takes away a life and respawns to 3rd point in game
         if (other.gameObject.CompareTag("Death003"))
         {
             this._spawn003();
@@ -241,6 +169,25 @@ public class ChameleonController : MonoBehaviour
             this.gameController.LivesValue--;
         }
 
+        // Collision with a monster event handler, takes away a life and respawns to start of game
+        if (other.gameObject.CompareTag("Monster001"))
+        {
+            this._spawn001();
+            this._hurtSound.Play();
+            Destroy(other.gameObject);
+            this.gameController.LivesValue--;
+        }
+
+        // Collision with a monster event handler, takes away a life and respawns to 3rd point in game
+        if (other.gameObject.CompareTag("Monster002"))
+        {
+            this._spawn003();
+            this._hurtSound.Play();
+            Destroy(other.gameObject);
+            this.gameController.LivesValue--;
+        }
+
+        // Collision with a Bear event handler, gives the player 50 points
         if (other.gameObject.CompareTag("Trophy"))
         {
             this.gameController.ScoreValue += 50;
@@ -250,6 +197,7 @@ public class ChameleonController : MonoBehaviour
         }
     }
 
+    // Flips the player right to left and vice-versa
     // PRIVATE METHODS
     private void _flip()
     {
@@ -263,16 +211,19 @@ public class ChameleonController : MonoBehaviour
         }
     }
 
+    // Spawns to start of game
     private void _spawn001()
     {
         this._transform.position = new Vector3(-130f, -111f, 0);
     }
 
+    // Spawns to mid of game
     private void _spawn002()
     {
         this._transform.position = new Vector3(2175f, -176f, 0);
     }
 
+    // Spawns to end of game
     private void _spawn003()
     {
         this._transform.position = new Vector3(3365f, -113f, 0);
