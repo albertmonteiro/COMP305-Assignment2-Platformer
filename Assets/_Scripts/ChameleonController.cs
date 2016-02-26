@@ -44,7 +44,7 @@ public class ChameleonController : MonoBehaviour
     void Start()
     {
         // Initialize Public Instance Variables
-        this.velocityRange = new VelocityRange(300f, 500f);
+        this.velocityRange = new VelocityRange(300f, 400f);
 
         // Initialize Private Instance Variables
         this._transform = gameObject.GetComponent<Transform>();
@@ -241,8 +241,9 @@ public class ChameleonController : MonoBehaviour
             this.gameController.LivesValue--;
         }
 
-        if (other.gameObject.CompareTag("Finish"))
+        if (other.gameObject.CompareTag("Trophy"))
         {
+            this.gameController.ScoreValue += 50;
             this._coinSound.Play();
             Destroy(other.gameObject);
             gameController._endGame();

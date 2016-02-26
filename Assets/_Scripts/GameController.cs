@@ -55,6 +55,7 @@ public class GameController : MonoBehaviour
     public Text GameOverLabel;
     public Text HighScoreLabel;
     public Button RestartButton;
+    public ChameleonController chameleon;
 
     // Use this for initialization
     void Start()
@@ -91,11 +92,11 @@ public class GameController : MonoBehaviour
         this.ScoreLabel.gameObject.SetActive(false);
         this._gameOverSound.Play();
         this.RestartButton.gameObject.SetActive(true);
+        this.chameleon.gameObject.SetActive(false);
     }
 
     public void RestartButtonClick()
     {
-        Debug.Log("Restart!");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
